@@ -39,6 +39,7 @@ int main(int argc, const char *argv[])
             string title;
             cout<<"Enter title:"<<endl;
             getline(cin, title);
+            mTable->findMovie(title);
         }
         else if (command == "4")
         {
@@ -59,7 +60,7 @@ int main(int argc, const char *argv[])
 
 void displayMenu()
 {
-    cout << "======Main Menu=====" << endl;
+    cout << "======Main Menu======" << endl;
     cout << "1. Insert movie" << endl;
     cout << "2. Delete movie" << endl;
     cout << "3. Find movie" << endl;

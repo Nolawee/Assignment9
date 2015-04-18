@@ -37,7 +37,7 @@ public:
     HashTable(int x);
     //~HashTable();
     void insertMovie(std::string in_title, int year);
-    Movie* findMovie(std::string in_title, int *index);
+    Movie* findMovie(std::string in_title);
     void deleteMovie(std::string in_title);
     void printInventory();
     int hashSum(std::string in_title, int s);

@@ -52,17 +52,85 @@ int HashTable::hashSum(string in_title, int s)
     sum = sum % s;
     return sum;
 }
-/*
-int HashTable::hash(string in_title);
-{
-    int hashValue = 0;
-    for(int i = 0; i<in_title.length(); i++)
-    {
-        hashValue = hashValue + int(in_title([i]));
-    }
-}
-*/
+
+
 void HashTable::deleteMovie(string in_title)
 {
-    //int index = HashTable(in_title);
+    int index = hashSum(in_title, tableSize);
+    Movie *start = movieTable[index];  //hash numbers
+    Movie *previous = NULL;
+
+    if(start == NULL)
+    {
+        cout << "not found" << endl;
+    }
+    else
+    {
+        while(start != NULL)
+        {
+            if(start -> title == in_title)
+            {
+                if(previous == NULL)
+                {
+                    movieTable[index] = start -> next;
+                    delete start;
+                    return;
+                }
+                else
+                {
+                    previous -> next = start->next;
+                    delete start;
+                    return;
+                }
+            }
+
+            previous = start;
+            start = start -> next;
+        }
+        cout << "not found" << endl;
+    }
+ }
+
+void HashTable::printInventory()
+{
+    Movie* temp;
+    for(int i = 0; i< tableSize; i++)
+    {
+        if (movieTable[i] != NULL && movieTable[i]->next != NULL) {
+            temp = movieTable[i];
+            while (temp != NULL) {
+                cout<<temp->title<<":"<<temp->year<<endl;
+                temp = temp->next;
+            }
+        }
+        else if(movieTable[i] != NULL && movieTable[i]->next == NULL)
+        {
+            cout<<movieTable[i]->title<<":"<<movieTable[i]->year<<endl;
+        }
+        
+        if (movieTable[i] == NULL)
+        {
+            cout<<"empty"<<endl;
+            break;
+        }
+         
+    }
+}
+
+Movie* HashTable::findMovie(string in_title){
+    Movie *movieTitle = NULL;
+    bool flag = false;
+    int index = HashTable::hashSum(in_title, tableSize);
+    Movie * entry = movieTable[index];
+    while(entry != NULL){
+        if(entry->title == in_title){
+            std::cout<<entry->title<<":"<<entry->year<<std::endl;
+            return entry;
+        }
+        entry = entry->next;
+    }
+    if(!flag){
+        printf("Not Found\n");
+    }
+    return movieTitle;
 }
